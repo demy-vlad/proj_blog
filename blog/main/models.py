@@ -8,7 +8,7 @@ class Users(models.Model):
     date_birth = models.DateField("Date of Birth", null=False, blank=False)
 
     class Meta:
-        verbose_name_plural = "User"
+        verbose_name = "User"
         verbose_name_plural = "Users"
 
     def __str__(self):
@@ -22,7 +22,7 @@ class CatalogOfArticles(models.Model):
     description = models.TextField("Description", null=False, blank=False)
 
     class Meta:
-        verbose_name_plural = "Catalog of Article"
+        verbose_name = "Catalog of Article"
         verbose_name_plural = "Catalog of Articles"
 
     def __str__(self):
@@ -39,7 +39,7 @@ class Blog(models.Model):
     date_added = models.DateField("Date Added", null=False, blank=False)
 
     class Meta:
-        verbose_name_plural = "Blog"
+        verbose_name = "Blog"
         verbose_name_plural = "Blogs"
 
     def __str__(self):
