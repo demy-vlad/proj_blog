@@ -16,19 +16,20 @@ class UsersForm(forms.ModelForm):
 class CatalogOfArticlesForm(forms.ModelForm):
     class Meta:
         model = CatalogOfArticles
-        fields = ['title', 'keywords_header', 'description_header', 'catalog_name', 'description']
+        fields = ['title', 'keywords_header', 'description_header', 'catalog_name', 'description', 'url_catalog']
         labels = {
             'title': 'Title',
             'keywords_header': 'Keywords Header',
             'description_header': 'Description Header',
             'catalog_name': 'Catalog Name',
             'description': 'Description',
+            'url_catalog': 'URL Catalog',
         }
 
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ['title', 'keywords_header', 'description_header', 'catalog_name', 'short_description', 'full_description', 'image', 'date_added']
+        fields = ['title', 'keywords_header', 'description_header', 'catalog_name', 'short_description', 'full_description', 'image', 'date_added', 'title_catalog']
         labels = {
             'title': 'Title',
             'keywords_header': 'Keywords Header',
@@ -38,4 +39,5 @@ class BlogForm(forms.ModelForm):
             'full_description': 'Full Description',
             'image': 'Image',
             'date_added': 'Date Added',
+            'title_catalog': 'Title Catalog',
         }
