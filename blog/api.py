@@ -1,8 +1,8 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import date
-from django.core.exceptions import ObjectDoesNotExist
 import os
 import django
 
@@ -37,6 +37,31 @@ class BlogCreate(BaseModel):
     image: Optional[str] = "default.jpg"
     date_added: date
 
+# Класс для хранения пользователей (заглушка)
+class Users:
+    users = {"admin": "admin"}
+    
+# Инициализируем экземпляр HTTPBasic для аутентификации
+security = HTTPBasic()
+
+# Функция для проверки учетных данных пользователя
+def check_credentials(credentials: HTTPBasicCredentials = Depends(security)):
+    # Получаем переданные учетные данные
+    username = credentials.username
+    password = credentials.password
+    
+    # Проверяем, есть ли такой пользователь и совпадает ли пароль
+    if username not in Users.users or Users.users[username] != password:
+        # Если нет, вызываем исключение HTTP 401 Unauthorized
+        raise HTTPException(
+            status_code=401,
+            detail="Incorrect email or password",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    
+    # Возвращаем имя пользователя, чтобы можно было его использовать в обработчике
+    return username
+
 # Роут для получения всех блогов
 @app.get("/blogs/", response_model=List[BlogResponse])
 def get_all_blogs():
@@ -65,7 +90,7 @@ def get_all_blogs():
     
 # Роут для создания нового блога
 @app.post("/blogs/", response_model=BlogResponse)
-def create_blog(blog_data: BlogCreate):
+def create_blog(blog_data: BlogCreate, username: str = Depends(check_credentials)):
     try:
         validate_blog_data(blog_data.title, blog_data.keywords_header, blog_data.description_header, blog_data.catalog_name, blog_data.short_description, blog_data.full_description, blog_data.date_added)
         
