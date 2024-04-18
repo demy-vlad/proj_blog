@@ -15,6 +15,10 @@
 1. ```docker-compose build --no-cache```
 2. ```docker-compose up --detach```
 
+## FastAPI
+1. Clone the repository
+2. Change to the project directory: ```cd blog```
+3. Start local: ```uvicorn api:app --reload --port 7000```
 
 ## Running Tests
 - You must have dependencies installed!
