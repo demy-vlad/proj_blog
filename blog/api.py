@@ -124,12 +124,12 @@ def create_blog(blog_data: BlogCreate, username: str = Depends(check_credentials
             date_added=new_blog.date_added
         )
         return created_blog
-    except Exception as e:
+    except (Exception, KeyboardInterrupt) as e:
         raise HTTPException(status_code=400, detail=str(e))
     
 @app.get("/catalogs/", response_model=List[CatalogOfArticlesResponse])
 def get_all_catalog(username: str = Depends(check_credentials)):
     try:
         return CatalogOfArticles.objects.all()
-    except Exception as e:
+    except (Exception, KeyboardInterrupt) as e:
         raise HTTPException(status_code=500, detail=str(e))
