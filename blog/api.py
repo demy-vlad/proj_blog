@@ -10,10 +10,16 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'blog.settings')
 django.setup()
 
 from validators import validate_blog_data
-from main.models import Blog
+from main.models import Blog, CatalogOfArticles
 
 app = FastAPI()
 
+# Pydantic модель для Catalog
+class CatalogOfArticlesResponse(BaseModel):
+    id: int
+    title: str
+    url_catalog: str
+    
 # Pydantic модель для Blog
 class BlogResponse(BaseModel):
     id: int
@@ -55,7 +61,7 @@ def check_credentials(credentials: HTTPBasicCredentials = Depends(security)):
         # Если нет, вызываем исключение HTTP 401 Unauthorized
         raise HTTPException(
             status_code=401,
-            detail="Incorrect email or password",
+            detail="Incorrect user or password",
             headers={"WWW-Authenticate": "Basic"},
         )
     
@@ -120,3 +126,10 @@ def create_blog(blog_data: BlogCreate, username: str = Depends(check_credentials
         return created_blog
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+    
+@app.get("/catalogs/", response_model=List[CatalogOfArticlesResponse])
+def get_all_catalog(username: str = Depends(check_credentials)):
+    try:
+        return CatalogOfArticles.objects.all()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
