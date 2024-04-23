@@ -20,7 +20,6 @@ class CatalogOfArticles(models.Model):
     keywords_header = models.TextField("Keywords Header", max_length=300, null=False, blank=False)
     description_header = models.TextField("Description Header", max_length=300, null=False, blank=False)
     catalog_name = models.TextField("Catalog Name", max_length=100, null=False, blank=False)
-    description = RichTextField("Description", null=False, blank=False)
     url_catalog = models.URLField("URL Catalog", max_length=1000, default='-')
 
     class Meta:
@@ -31,15 +30,14 @@ class CatalogOfArticles(models.Model):
         return self.title
 
 class Blog(models.Model):
-    title = models.CharField("Title", max_length=200, null=False, blank=False)
-    keywords_header = models.TextField("Keywords Header", max_length=300, null=False, blank=False)
-    description_header = models.TextField("Description Header", max_length=300, null=False, blank=False)
+    title = models.CharField("Title", max_length=2000, null=False, blank=False)
+    keywords_header = models.TextField("Keywords Header", max_length=2000, null=False, blank=False)
+    description_header = models.TextField("Description Header", max_length=3000, null=False, blank=False)
     catalog_name = models.TextField("Catalog Name", max_length=100, null=False, blank=False)
-    short_description = RichTextField("Short Description", max_length=400, null=False, blank=False)
-    full_description = RichTextField("Full Description", max_length=400, null=False, blank=False)
+    short_description = RichTextField("Short Description", max_length=4000, null=False, blank=False)
+    full_description = RichTextField("Full Description", max_length=4000, null=False, blank=False)
     image = models.ImageField("Image", null=False, blank=False, default='default.jpg')
     date_added = models.DateField("Date Added", null=False, blank=False)
-    title_catalog = models.CharField("Title Catalog", max_length=400)
 
 
     class Meta:

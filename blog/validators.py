@@ -9,20 +9,20 @@ def validate_blog_data(title: str, keywords_header: str, description_header: str
         raise HTTPException(status_code=400, detail="All fields are required")
     
     # Проверка типов данных и ограничений на количество символов для каждого поля
-    if not isinstance(title, str) or len(title) > 200:
-        raise HTTPException(status_code=400, detail="Title must be a string with max length 200")
+    if not isinstance(title, str) or len(title) > 2000:
+        raise HTTPException(status_code=400, detail="Title must be a string with max length 2000")
     
-    if not isinstance(keywords_header, str) or len(keywords_header) > 300:
-        raise HTTPException(status_code=400, detail="Keywords header must be a string with max length 300")
+    if not isinstance(keywords_header, str) or len(keywords_header) > 2000:
+        raise HTTPException(status_code=400, detail="Keywords header must be a string with max length 2000")
     
-    if not isinstance(description_header, str) or len(description_header) > 300:
-        raise HTTPException(status_code=400, detail="Description header must be a string with max length 300")
+    if not isinstance(description_header, str) or len(description_header) > 3000:
+        raise HTTPException(status_code=400, detail="Description header must be a string with max length 3000")
     
     if not isinstance(catalog_name, str) or len(catalog_name) > 100:
         raise HTTPException(status_code=400, detail="Catalog name must be a string with max length 100")
     
-    if not isinstance(short_description, str) or len(short_description) > 400:
-        raise HTTPException(status_code=400, detail="Short description must be a string with max length 400")
+    if not isinstance(short_description, str) or len(short_description) > 4000:
+        raise HTTPException(status_code=400, detail="Short description must be a string with max length 4000")
     
-    if not isinstance(full_description, str) or len(full_description) > 400:
-        raise HTTPException(status_code=400, detail="Full description must be a string with max length 400")
+    if not isinstance(full_description, str) or len(full_description) > 4000:
+        raise HTTPException(status_code=400, detail="Full description must be a string with max length 4000")
