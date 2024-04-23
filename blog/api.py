@@ -133,3 +133,5 @@ def get_all_catalog(username: str = Depends(check_credentials)):
         return CatalogOfArticles.objects.all()
     except (Exception, KeyboardInterrupt) as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+# username: str = Depends(check_credentials)

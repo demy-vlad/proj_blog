@@ -1,0 +1,137 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Технологический блог</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="container-fluid bg-dark text-white py-4">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <a class="navbar-brand" href="/">Технологический Блог</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Главная</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">О нас</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Контакты</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Последние публикации -->
+                <h2>Последние публикации</h2>
+                <div id="blog-posts" class="row">
+                  <!-- Публикация 1 -->
+                  <div class="col-md-6">
+                      <div class="card mb-3">
+                          <img src="https://s.ek.ua/posts/files/5547/medium_pic.jpg" alt="">
+                          <div class="card-body d-flex justify-content-between align-items-center">
+                              <div>
+                                  <h3 class="card-title">🆕 10 способов улучшить производительность веб-приложений улучшить производительность веб-приложений !!</h3>
+                                  <p class="card-text">Мережеві інструменти для скопування, розпушування та прополювання ґрунту на невеликих городах та присадибних ділянках.</p>
+                                  <p class="card-text"><small class="text-muted">12 апреля 2024</small></p>
+                              </div>
+                          </div>
+                          <a href="#" class="btn btn-primary btn-sm btn-t">➜</a>
+                      </div>
+                  </div>
+                  <!-- Публикация 2 -->
+                  <div class="col-md-6">
+                      <div class="card mb-3">
+                          <img src="https://s.ek.ua/posts/files/5547/medium_pic.jpg" alt="">
+                          <div class="card-body d-flex justify-content-between align-items-center">
+                              <div>
+                                  <h3 class="card-title">🆕 Новейшие тенденции в разработке искусственного интеллекта</h3>
+                                  <p class="card-text">Узнайте о последних технологических достижениях и ключевых тенденциях в сфере искусственного интеллекта.</p>
+                                  <p class="card-text"><small class="text-muted">10 апреля 2024</small></p>
+                              </div>
+                          </div>
+                          <a href="#" class="btn btn-primary btn-sm btn-t">➜</a>
+                      </div>
+                  </div>
+                  <!-- Публикация 2 -->
+                  <div class="col-md-6">
+                    <div class="card mb-3">
+                        <img src="https://s.ek.ua/posts/files/5547/medium_pic.jpg" alt="">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h3 class="card-title">🆕 Новейшие тенденции в разработке искусственного интеллекта</h3>
+                                <p class="card-text">Узнайте о последних технологических достижениях и ключевых тенденциях в сфере искусственного интеллекта.</p>
+                                <p class="card-text"><small class="text-muted">10 апреля 2024</small></p>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary btn-sm btn-t">➜</a>
+                    </div>
+                </div>
+                <!-- Публикация 2 -->
+                <div class="col-md-6">
+                  <div class="card mb-3">
+                      <img src="https://s.ek.ua/posts/files/5547/medium_pic.jpg" alt="">
+                      <div class="card-body d-flex justify-content-between align-items-center">
+                          <div>
+                              <h3 class="card-title">🆕 Нове dasdasd йшие тенденции в разработке искусственного интеллекта</h3>
+                              <p class="card-text">Узнайте о последних dasdasasda dasdaa sadadasda sdadad asd asdadadd asdasdasdsdasasds dadasdasa asdasd asdтехнологических достижениях и ключевых тенденциях в сфере искусственного интеллекта.</p>
+                              <p class="card-text"><small class="text-muted">10 апреля 2024</small></p>
+                          </div>
+                      </div>
+                      <a href="#" class="btn btn-primary btn-sm btn-t">➜</a>
+                  </div>
+              </div>
+                  <!-- Добавьте остальные публикации здесь -->
+              </div>
+                              
+                <!-- Пагинация -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center" id="pagination"></ul>
+                </nav>
+            </div>
+            <div class="col-lg-4">
+                <!-- Популярные темы -->
+                <h2>Популярные темы</h2>
+                <ul id="popular-topics">
+                    {% for catalog in catalogs %}
+                        <li>
+                            [{{ catalog_count }}] {{ catalog.title }}<br>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="header-content">
+      <h1 class="display-4">Технологический Блог</h1>
+      <p class="lead">Изучаем новые технологии вместе! Присоединяйтесь к нам, чтобы узнавать о последних трендах в мире технологий и делиться своим опытом и знаниями.</p>
+    </div>
+    <footer class="container-fluid bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2024 Технологический Блог</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    {% comment %} <script src="{% static 'js/script.js' %}"></script> {% endcomment %}
+</body>
+</html>

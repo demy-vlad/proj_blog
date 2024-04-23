@@ -1,0 +1,259 @@
+/* Стили для слайдера */
+.slider {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.slider img {
+  width: 100%;
+}
+
+/* Дополнительные стили для слайдера */
+.slider {
+  position: relative;
+  overflow: hidden;
+}
+
+.slider .slick-slide {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.slider .slick-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.slider .slick-dots li {
+  margin: 0 5px;
+}
+
+.slider .slick-dots li button {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #fff;
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.slider .slick-dots li.slick-active button {
+  background-color: #fff;
+}
+
+/* Стили для заголовков */
+.header-content {
+  text-align: center;
+  margin-bottom: 50px;
+  background-color: #f0f0f0; /* Изменение цвета фона */
+  padding: 20px; /* Добавление внутренних отступов */
+}
+
+/* Стили для карточек публикаций */
+.card {
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Добавление тени */
+}
+
+.card:hover {
+  background: #f7f7f7;
+  /* border:solid #f7f7f7; */
+}
+
+.card-body {
+  padding: 20px; /* Добавление внутренних отступов */
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 1rem;
+}
+
+.text-muted {
+  color: #6c757d; /* Цвет для текста с малой яркостью */
+}
+
+/* Стили для кнопки "Полная статья" */
+.btn-full-article {
+  margin-top: 10px;
+}
+
+/* Стили для пагинации */
+.pagination {
+  margin-top: 20px;
+}
+
+/* Стили для популярных тем */
+#popular-topics li {
+  margin-bottom: 10px;
+  list-style: none;
+  border-bottom: 1px solid #ccc; /* Добавление разделителей */
+  padding-bottom: 5px; /* Добавление внутренних отступов */
+}
+
+/* Стили для футера */
+footer {
+  background-color: #343a40; /* Изменение цвета фона */
+  color: #fff; /* Изменение цвета текста */
+  text-align: center;
+  padding: 20px 0; /* Добавление внутренних отступов по вертикали */
+}
+
+/* Медиа-запросы для адаптивности */
+
+/* Для устройств с шириной экрана до 768px (таких как планшеты и мобильные устройства) */
+@media (max-width: 768px) {
+  .header-content {
+      padding: 10px; /* Уменьшение внутренних отступов */
+      margin-bottom: 30px; /* Уменьшение внутренних отступов */
+  }
+
+  .card-columns {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+  }
+
+  .card {
+      width: calc(50% - 10px);
+  }
+}
+
+/* Для устройств с шириной экрана до 576px (таких как мобильные устройства) */
+@media (max-width: 576px) {
+  .card {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 20px;
+  }
+}
+/* Стили для бургер-меню */
+.navbar-toggler {
+  border: none;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.navbar-toggler-icon {
+  background-color: #fff;
+}
+
+.navbar-toggler-icon::after, .navbar-toggler-icon::before {
+  background-color: #fff;
+}
+
+/* Стили для раздела "Популярные темы" в бургер-меню */
+.nav-link {
+  color: #fff;
+}
+
+.nav-link:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.slider {
+  display: flex;
+  position: relative;
+  width: 600%;
+  height: 100%;
+  transition: transform 0.5s ease;
+}
+
+.slides {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.controls {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+input[name="point"] {
+  display: none;
+}
+
+label {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  margin: 0 5px;
+  background-color: #333;
+  border-radius: 50%;
+}
+
+#slide1:checked ~ .slider {
+  transform: translateX(0%);
+}
+
+#slide2:checked ~ .slider {
+  transform: translateX(-20%);
+}
+
+#slide3:checked ~ .slider {
+  transform: translateX(-40%);
+}
+
+#slide4:checked ~ .slider {
+  transform: translateX(-60%);
+}
+
+#slide5:checked ~ .slider {
+  transform: translateX(-80%);
+}
+
+#slide1:checked ~ .controls label:nth-child(1),
+#slide2:checked ~ .controls label:nth-child(2),
+#slide3:checked ~ .controls label:nth-child(3),
+#slide4:checked ~ .controls label:nth-child(4),
+#slide5:checked ~ .controls label:nth-child(5) {
+  background-color: #fff;
+}
+
+.btn-t {
+  margin-top: -18% !important;
+  margin: 1% 1% 1% 85%;
+  font-size: 2rem;
+  color: #007bff;
+  background-color: #fdfdfd00;
+  border-color: #fdfdfd00;
+}
+
+.btn-t:hover{
+  color: #2196F3;
+  background-color: #fdfdfd00;
+  border-color: #fdfdfd00;
+}
+
+img {
+  margin: 1%;
+  border-radius: 1%;
+}
