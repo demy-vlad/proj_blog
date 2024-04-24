@@ -14,6 +14,8 @@ def count_blog_entries_by_catalog():
             entry_count = len(catalog_entry_counts[catalog.title])
             # Update the entry count in the dictionary
             catalog_entry_counts[catalog.title] = {
-                'count': entry_count
+                'count': entry_count,
+                'category': catalog.id,
             }
+            logger.debug(catalog_entry_counts)
     return catalog_entry_counts

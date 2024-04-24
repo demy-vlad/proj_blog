@@ -22,12 +22,16 @@ class CatalogOfArticles(models.Model):
     catalog_name = models.TextField("Catalog Name", max_length=100, null=False, blank=False)
     url_catalog = models.URLField("URL Catalog", max_length=1000, default='-')
 
+    def get_absolute_url(self):
+        return reverse('catalog_name', kwargs={'pk': self.pk})
+    
     class Meta:
         verbose_name = "Catalog of Article"
         verbose_name_plural = "Catalog of Articles"
 
     def __str__(self):
         return self.title
+    
 from django.urls import reverse
 class Blog(models.Model):
     title = models.CharField("Title", max_length=2000, null=False, blank=False)
@@ -40,7 +44,7 @@ class Blog(models.Model):
     date_added = models.DateField("Date Added", null=False, blank=False)
     
     def get_absolute_url(self):
-        return reverse('blog_detail', kwargs={'pk': self.pk})  # Замените 'blog_detail' на имя вашего URL маршрута для деталей блога
+        return reverse('blog_detail', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name = "Blog"
