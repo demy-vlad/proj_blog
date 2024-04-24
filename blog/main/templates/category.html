@@ -1,11 +1,10 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Технологічний блог</title>
+    <title>Технологічний блог - {{ catalog.title }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
@@ -35,35 +34,64 @@
             </nav>
         </div>
     </header>
+
     <div class="container mt-5">
         <div class="row">
             <div class="col-lg-8">
-                <!-- Последние публикации -->
-                <h2>Останні публікації</h2>
+                <h2>{{ catalog.title }}</h2>
                 <div id="blog-posts" class="row">
-                  <!-- Публикация 1 -->
-                  {% for blog in blogs %}
-                  <div class="col-md-6">
-                      <div class="card mb-3">
-                          <img src="{{blog.image}}" alt="">
-                          <div class="card-body d-flex justify-content-between align-items-center">
-                              <div>
-                                  <h3 class="card-title">📌 {{blog.title}}</h3>
-                                  <p class="card-text">{{blog.short_description}}</p>
-                                  <p class="card-text"><small class="text-muted">{{blog.date_added}}</small></p>
-                              </div>
-                          </div>
-                          <a href="blog/{{blog.id}}" class="btn btn-primary btn-sm btn-t">➜</a>
-                      </div>
-                  </div>
-                  {% endfor %}
-                  <!-- Добавьте остальные публикации здесь -->
-              </div>            
-                <!-- Пагинация -->
+                    <!-- Loop through blogs -->
+                    {% for blog in blogs %}
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <img src="{{ blog.image }}" alt="">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h3 class="card-title">{{ blog.title }}</h3>
+                                    <p class="card-text">{{ blog.short_description }}</p>
+                                    <p class="card-text"><small class="text-muted">{{ blog.date_added }}</small></p>
+                                </div>
+                            </div>
+                            <a href="{{ blog.get_absolute_url }}" class="btn btn-primary btn-sm btn-t">➜</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Pagination -->
                 <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center" id="pagination"></ul>
+                    <ul class="pagination justify-content-center">
+                        {% if blogs.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1">First</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ blogs.previous_page_number }}">Previous</a>
+                            </li>
+                        {% endif %}
+                        {% for num in blogs.paginator.page_range %}
+                            {% if num == blogs.number %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if blogs.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ blogs.next_page_number }}">Next</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ blogs.paginator.num_pages }}">Last</a>
+                            </li>
+                        {% endif %}
+                    </ul>
                 </nav>
             </div>
+
             <div class="col-lg-4">
                 <!-- Популярные темы -->
                 <h2>Популярні теми</h2>
@@ -77,10 +105,7 @@
             </div>
         </div>
     </div>
-    <div class="header-content">
-      <h1 class="display-4">Технологічний Блог</h1>
-      <p class="lead">Вивчаємо нові технології разом! Приєднуйтесь до нас, щоб дізнаватися про останні тренди у світі технологій та ділитися своїм досвідом та знаннями.</p>
-    </div>
+
     <footer class="container-fluid bg-dark text-white py-4 mt-5">
         <div class="container">
             <p>&copy; 2024 Технологічний Блог</p>
@@ -91,6 +116,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    {% comment %} <script src="{% static 'js/script.js' %}"></script> {% endcomment %}
 </body>
 </html>
