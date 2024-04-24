@@ -240,18 +240,38 @@ label {
 
 .btn-t {
   margin-top: -18% !important;
-  margin: 1% 1% 1% 85%;
+  margin: 0px 0px 0px 280px;
+  padding: inherit;
   font-size: 2rem;
-  color: #007bff;
+  color: #54a3f7;
   background-color: #fdfdfd00;
   border-color: #fdfdfd00;
 }
 
 .btn-t:hover{
-  color: #2196F3;
-  background-color: #fdfdfd00;
-  border-color: #fdfdfd00;
+  color: #2387f3;
+  background-color: transparent;
+  border-color: transparent;
 }
+.card .btn-t:active{
+  color: #f3db23 !important;
+  box-shadow: 0 0 0 .2rem rgb(38 143 255 / 0%) !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+.btn-t:focus{
+  color: #2387f3 !important;
+  box-shadow: 0 0 0 .2rem rgb(38 143 255 / 0%) !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+.btn-t:focus-visible{
+  color: #2387f3 !important;
+  box-shadow: 0 0 0 .2rem rgb(38 143 255 / 0%) !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
 
 img {
   margin: 1%;

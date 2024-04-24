@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Технологический блог</title>
+    <title>Технологічний блог</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
@@ -15,20 +15,20 @@
     <header class="container-fluid bg-dark text-white py-4">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-dark">
-                <a class="navbar-brand" href="/">Технологический Блог</a>
+                <a class="navbar-brand" href="/">Технологічний Блог</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Главная</a>
+                            <a class="nav-link" href="/">Головна</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">О нас</a>
+                            <a class="nav-link" href="#">Про нас</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Контакты</a>
+                            <a class="nav-link" href="#">Контакти</a>
                         </li>
                     </ul>
                 </div>
@@ -39,64 +39,24 @@
         <div class="row">
             <div class="col-lg-8">
                 <!-- Последние публикации -->
-                <h2>Последние публикации</h2>
+                <h2>Останні публікації</h2>
                 <div id="blog-posts" class="row">
                   <!-- Публикация 1 -->
+                  {% for blog in latest_publications %}
                   <div class="col-md-6">
                       <div class="card mb-3">
-                          <img src="https://s.ek.ua/posts/files/5547/medium_pic.jpg" alt="">
+                          <img src="{{blog.image}}" alt="">
                           <div class="card-body d-flex justify-content-between align-items-center">
                               <div>
-                                  <h3 class="card-title">🆕 10 способов улучшить производительность веб-приложений улучшить производительность веб-приложений !!</h3>
-                                  <p class="card-text">Мережеві інструменти для скопування, розпушування та прополювання ґрунту на невеликих городах та присадибних ділянках.</p>
-                                  <p class="card-text"><small class="text-muted">12 апреля 2024</small></p>
+                                  <h3 class="card-title">📌 {{blog.title}}</h3>
+                                  <p class="card-text">{{blog.short_description}}</p>
+                                  <p class="card-text"><small class="text-muted">{{blog.date_added}}</small></p>
                               </div>
                           </div>
                           <a href="#" class="btn btn-primary btn-sm btn-t">➜</a>
                       </div>
                   </div>
-                  <!-- Публикация 2 -->
-                  <div class="col-md-6">
-                      <div class="card mb-3">
-                          <img src="https://s.ek.ua/posts/files/5547/medium_pic.jpg" alt="">
-                          <div class="card-body d-flex justify-content-between align-items-center">
-                              <div>
-                                  <h3 class="card-title">🆕 Новейшие тенденции в разработке искусственного интеллекта</h3>
-                                  <p class="card-text">Узнайте о последних технологических достижениях и ключевых тенденциях в сфере искусственного интеллекта.</p>
-                                  <p class="card-text"><small class="text-muted">10 апреля 2024</small></p>
-                              </div>
-                          </div>
-                          <a href="#" class="btn btn-primary btn-sm btn-t">➜</a>
-                      </div>
-                  </div>
-                  <!-- Публикация 2 -->
-                  <div class="col-md-6">
-                    <div class="card mb-3">
-                        <img src="https://s.ek.ua/posts/files/5547/medium_pic.jpg" alt="">
-                        <div class="card-body d-flex justify-content-between align-items-center">
-                            <div>
-                                <h3 class="card-title">🆕 Новейшие тенденции в разработке искусственного интеллекта</h3>
-                                <p class="card-text">Узнайте о последних технологических достижениях и ключевых тенденциях в сфере искусственного интеллекта.</p>
-                                <p class="card-text"><small class="text-muted">10 апреля 2024</small></p>
-                            </div>
-                        </div>
-                        <a href="#" class="btn btn-primary btn-sm btn-t">➜</a>
-                    </div>
-                </div>
-                <!-- Публикация 2 -->
-                <div class="col-md-6">
-                  <div class="card mb-3">
-                      <img src="https://s.ek.ua/posts/files/5547/medium_pic.jpg" alt="">
-                      <div class="card-body d-flex justify-content-between align-items-center">
-                          <div>
-                              <h3 class="card-title">🆕 Нове dasdasd йшие тенденции в разработке искусственного интеллекта</h3>
-                              <p class="card-text">Узнайте о последних dasdasasda dasdaa sadadasda sdadad asd asdadadd asdasdasdsdasasds dadasdasa asdasd asdтехнологических достижениях и ключевых тенденциях в сфере искусственного интеллекта.</p>
-                              <p class="card-text"><small class="text-muted">10 апреля 2024</small></p>
-                          </div>
-                      </div>
-                      <a href="#" class="btn btn-primary btn-sm btn-t">➜</a>
-                  </div>
-              </div>
+                  {% endfor %}
                   <!-- Добавьте остальные публикации здесь -->
               </div>
                               
@@ -107,24 +67,22 @@
             </div>
             <div class="col-lg-4">
                 <!-- Популярные темы -->
-                <h2>Популярные темы</h2>
+                <h2>Популярні теми</h2>
                 <ul id="popular-topics">
-                    {% for catalog in catalogs %}
-                        <li>
-                            [{{ catalog_count }}] {{ catalog.title }}<br>
-                        </li>
+                    {% for catalog_name, details in catalogs.items %}
+                        <p>[{{ details.count }}] {{ catalog_name }}</p>
                     {% endfor %}
                 </ul>
             </div>
         </div>
     </div>
     <div class="header-content">
-      <h1 class="display-4">Технологический Блог</h1>
-      <p class="lead">Изучаем новые технологии вместе! Присоединяйтесь к нам, чтобы узнавать о последних трендах в мире технологий и делиться своим опытом и знаниями.</p>
+      <h1 class="display-4">Технологічний Блог</h1>
+      <p class="lead">Вивчаємо нові технології разом! Приєднуйтесь до нас, щоб дізнаватися про останні тренди у світі технологій та ділитися своїм досвідом та знаннями.</p>
     </div>
     <footer class="container-fluid bg-dark text-white py-4 mt-5">
         <div class="container">
-            <p>&copy; 2024 Технологический Блог</p>
+            <p>&copy; 2024 Технологічний Блог</p>
         </div>
     </footer>
 

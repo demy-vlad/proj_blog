@@ -28,7 +28,7 @@ class CatalogOfArticles(models.Model):
 
     def __str__(self):
         return self.title
-
+from django.urls import reverse
 class Blog(models.Model):
     title = models.CharField("Title", max_length=2000, null=False, blank=False)
     keywords_header = models.TextField("Keywords Header", max_length=2000, null=False, blank=False)
@@ -38,7 +38,9 @@ class Blog(models.Model):
     full_description = RichTextField("Full Description", max_length=4000, null=False, blank=False)
     image = models.ImageField("Image", null=False, blank=False, default='default.jpg')
     date_added = models.DateField("Date Added", null=False, blank=False)
-
+    
+    def get_absolute_url(self):
+        return reverse('blog_detail', kwargs={'pk': self.pk})  # Замените 'blog_detail' на имя вашего URL маршрута для деталей блога
 
     class Meta:
         verbose_name = "Blog"

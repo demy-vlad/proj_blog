@@ -1,10 +1,16 @@
 from django.shortcuts import render
-from .models import CatalogOfArticles, Blog
-
-def get_catalog_names_by_title():
-    catalogs = CatalogOfArticles.objects.all()
-
+from .catalog_entry_counts import count_blog_entries_by_catalog  
+from .latest_publications import latest_publications
+    
 def index(request):
-    catalogs = CatalogOfArticles.objects.all()
-    catalog_count = catalogs.count()
-    return render(request, 'index.html', {'catalogs': catalogs, 'catalog_count': catalog_count})
+    return render(request, 'index.html', {
+        'catalogs': count_blog_entries_by_catalog(),
+        'latest_publications': latest_publications(),
+        })
+
+from django.shortcuts import render, get_object_or_404
+from .models import Blog
+
+def blog_detail(request, pk):
+    blog = get_object_or_404(Blog, pk=pk)
+    return render(request, 'blog_detail.html', {'blog': blog})
