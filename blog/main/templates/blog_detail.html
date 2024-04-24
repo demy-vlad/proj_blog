@@ -53,8 +53,10 @@
                 <!-- Популярные темы -->
                 <h2>Популярні теми</h2>
                 <ul id="popular-topics">
-                    {% for catalog_name, details in catalogs.items %}
-                        <p>[{{ details.count }}] {{ catalog_name }}</p>
+                    {% for catalog, details in catalogs.items %}
+                        <a href="/category/{{ details.category }}">
+                            <p>[{{ details.count }}] {{ catalog }}</p>
+                        </a>
                     {% endfor %}
                 </ul>
             </div>

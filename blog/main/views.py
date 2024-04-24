@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .catalog_entry_counts import count_blog_entries_by_catalog  
 from .latest_publications import latest_publications
 from django.shortcuts import render, get_object_or_404
-from .models import Blog, CatalogOfArticles
+from .models import Blog
    
 def index(request):
     return render(request, 'index.html', {

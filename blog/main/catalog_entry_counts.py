@@ -17,5 +17,4 @@ def count_blog_entries_by_catalog():
                 'count': entry_count,
                 'category': catalog.id,
             }
-            logger.debug(catalog_entry_counts)
     return catalog_entry_counts
