@@ -5,13 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{blog.title}}</title>
+    <title>{{blog.title}} | Test Blog</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <meta name="keywords" content="{{blog.keywords_header}}">
-    <meta name="description" content="{{blog.description_header}}">
+    <meta name="description" content="✔️ {{blog.description_header}}">
 </head>
 <body>
     <header class="container-fluid bg-dark text-white py-4">
@@ -41,6 +41,11 @@
         <h1 class="display-4">{{ blog.title }}</h1>
     </div>
     <div class="container mt-5">
+        <div class="catalog-path s-width"> 
+            <a href="/">Головна</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+            <a href="{{catalog.get_absolute_url}}">{{catalog.title}}</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+            <span class="path_lnk_group">{{blog.title}}</span>
+        </div>
         <div class="row">
             <div class="col-lg-8">
                 <!-- Последние публикации -->

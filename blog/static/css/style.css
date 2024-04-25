@@ -324,8 +324,6 @@ label {
   border-color: transparent !important;
 }
 
-
-img {
-  margin: 1%;
-  border-radius: 1%;
+.path_lnk_group{
+  color: #007bff;
 }
