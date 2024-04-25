@@ -11,8 +11,8 @@ def index(request):
         'latest_publications': latest_publications(),
         })
 
-def blog_detail(request, pk):
-    blog = get_object_or_404(Blog, pk=pk) 
+def blog_detail(request, slug):
+    blog = get_object_or_404(Blog, slug=slug) 
     return render(request, 'blog_detail.html', {
         'blog': blog,
         'catalogs': count_blog_entries_by_catalog(),
@@ -38,8 +38,8 @@ from .models import Blog, CatalogOfArticles
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-def catalog_name(request, pk):
-    catalog = get_object_or_404(CatalogOfArticles, pk=pk)
+def catalog_name(request, slug):
+    catalog = get_object_or_404(CatalogOfArticles, slug=slug)
     blogs = get_blogs_in_category(catalog.title)  # Отримуємо блоги з даної категорії
 
     # Застосовуємо пагінацію

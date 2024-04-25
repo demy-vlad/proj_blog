@@ -53,7 +53,7 @@
                                   <p class="card-text"><small class="text-muted">{{blog.date_added}}</small></p>
                               </div>
                           </div>
-                          <a href="blog/{{blog.id}}" class="btn btn-primary btn-sm btn-t">➜</a>
+                          <a href="blog/{{blog.slug}}" class="btn btn-primary btn-sm btn-t">➜</a>
                       </div>
                   </div>
                   {% endfor %}
@@ -70,7 +70,7 @@
                 <h2>Популярні теми</h2>
                 <div class="popular-topics">
                     {% for catalog, details in catalogs.items %}
-                        <a href="/category/{{ details.category }}">
+                        <a href="/category/{{ details.slug }}">
                             [{{ details.count }}] {{ catalog }}
                         </a>
                     {% endfor %}

@@ -99,7 +99,7 @@
                 <h2>Популярні теми</h2>
                 <div class="popular-topics">   
                     {% for catalog, details in catalogs.items %}
-                        <a href="/category/{{ details.category }}">
+                        <a href="/category/{{ details.slug }}">
                             [{{ details.count }}] {{ catalog }}
                         </a>
                     {% endfor %}

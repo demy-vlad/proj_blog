@@ -1,5 +1,8 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.utils.text import slugify
+from django.urls import reverse
+from slugify import slugify
 
 class Users(models.Model):
     username = models.CharField("Username", max_length=20, null=False, blank=False)
@@ -21,9 +24,23 @@ class CatalogOfArticles(models.Model):
     description_header = models.TextField("Description Header", max_length=300, null=False, blank=False)
     catalog_name = models.TextField("Catalog Name", max_length=100, null=False, blank=False)
     url_catalog = models.URLField("URL Catalog", max_length=1000, default='-')
+    slug = models.SlugField("Slug", max_length=200, unique=True, null=True, blank=True)
+
+    def generate_unique_slug(self):
+        slug = slugify(self.title)
+        counter = 1
+        while CatalogOfArticles.objects.filter(slug=slug).exists():
+            slug = f"{slugify(self.title)}-{counter}"
+            counter += 1
+        return slugify(slug)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self.generate_unique_slug()
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('catalog_name', kwargs={'pk': self.pk})
+        return reverse('catalog_name', kwargs={'slug': self.slug})
     
     class Meta:
         verbose_name = "Catalog of Article"
@@ -32,7 +49,6 @@ class CatalogOfArticles(models.Model):
     def __str__(self):
         return self.title
     
-from django.urls import reverse
 class Blog(models.Model):
     title = models.CharField("Title", max_length=2000, null=False, blank=False)
     keywords_header = models.TextField("Keywords Header", max_length=2000, null=False, blank=False)
@@ -42,9 +58,15 @@ class Blog(models.Model):
     full_description = RichTextField("Full Description", max_length=4000, null=False, blank=False)
     image = models.ImageField("Image", null=False, blank=False, default='default.jpg')
     date_added = models.DateField("Date Added", null=False, blank=False)
+    slug = models.SlugField("Slug", max_length=200, unique=True, null=True, blank=True)
     
     def get_absolute_url(self):
-        return reverse('blog_detail', kwargs={'pk': self.pk})
+        return reverse('blog_detail', kwargs={'slug': self.slug})
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Blog, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Blog"
