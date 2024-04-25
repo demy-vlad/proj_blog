@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="keywords" content="{{catalog.keywords_header}}">
+    <meta name="description" content="{{catalog.description_header}}">
 </head>
 <body>
     <header class="container-fluid bg-dark text-white py-4">
@@ -63,10 +65,10 @@
                     <ul class="pagination justify-content-center">
                         {% if blogs.has_previous %}
                             <li class="page-item">
-                                <a class="page-link" href="?page=1">First</a>
+                                <b><a class="page-link" href="?page=1"><<</a></b>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ blogs.previous_page_number }}">Previous</a>
+                                <b><a class="page-link" href="?page={{ blogs.previous_page_number }}"><</a></b>
                             </li>
                         {% endif %}
                         {% for num in blogs.paginator.page_range %}
@@ -82,10 +84,10 @@
                         {% endfor %}
                         {% if blogs.has_next %}
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ blogs.next_page_number }}">Next</a>
+                                <b><a class="page-link" href="?page={{ blogs.next_page_number }}">></a></b>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="?page={{ blogs.paginator.num_pages }}">Last</a>
+                                <b><a class="page-link" href="?page={{ blogs.paginator.num_pages }}">>></a></b>
                             </li>
                         {% endif %}
                     </ul>
@@ -95,13 +97,13 @@
             <div class="col-lg-4">
                 <!-- Популярные темы -->
                 <h2>Популярні теми</h2>
-                <ul id="popular-topics">
+                <div class="popular-topics">   
                     {% for catalog, details in catalogs.items %}
                         <a href="/category/{{ details.category }}">
-                            <p>[{{ details.count }}] {{ catalog }}</p>
+                            [{{ details.count }}] {{ catalog }}
                         </a>
                     {% endfor %}
-                </ul>
+                    </div>
             </div>
         </div>
     </div>

@@ -97,13 +97,32 @@
   margin-top: 20px;
 }
 
-/* Стили для популярных тем */
-#popular-topics li {
-  margin-bottom: 10px;
-  list-style: none;
-  border-bottom: 1px solid #ccc; /* Добавление разделителей */
-  padding-bottom: 5px; /* Добавление внутренних отступов */
+/* Стили для контейнера популярных тем */
+
+.popular-topics{
+  width: 250px; /* Ширина контейнера популярных тем */
+  float: left; /* Выравнивание влево */
+  border: 2px solid #dfdfdf; /* Обводка контейнера */
+  padding: 10px; /* Отступы внутри контейнера */
+  border-radius: 5px; /* Скругление углов контейнера */
 }
+
+.popular-topics a {
+  display: inline-block;
+  width: 100%;
+  padding: 2px;
+  margin: 2px;
+  /* text-align: center; */
+  color: #212529;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.popular-topics a:hover {
+  color: #4f5760; /* Цвет фона кнопки при наведении */
+}
+
 
 /* Стили для футера */
 footer {
@@ -115,11 +134,25 @@ footer {
 
 /* Медиа-запросы для адаптивности */
 
+@media (max-width: 1025px){
+  .btn-t {
+    margin: 0px 0px 0px 230px !important;
+}
+.display-4{
+  font-size: 2.5rem;
+}
+} 
+
 /* Для устройств с шириной экрана до 768px (таких как планшеты и мобильные устройства) */
 @media (max-width: 768px) {
   .header-content {
       padding: 10px; /* Уменьшение внутренних отступов */
       margin-bottom: 30px; /* Уменьшение внутренних отступов */
+      margin-top: 20px;
+  }
+  .display-4{
+    font-size: 1.5rem;
+  }
   }
 
   .card-columns {
@@ -128,33 +161,52 @@ footer {
       justify-content: space-between;
   }
 
-  .card {
-      width: calc(50% - 10px);
-  }
-}
-
 /* Для устройств с шириной экрана до 576px (таких как мобильные устройства) */
 @media (max-width: 576px) {
+  .mt-5, .my-5 {
+    margin-top: 1.5rem;
+  }
+  h2 {
+    font-size: 25px;
+  }
   .card {
       width: 100%;
       margin-right: 0;
       margin-bottom: 20px;
   }
+  .page-link{
+    padding: 0.4rem .4rem !important;
+  }
+  .btn-t{
+    margin: 0px 0px 0px 330px !important;
+  }
 }
+
+@media (max-width: 426px){
+  .btn-t {
+    margin: 0px 0px 5px 350px !important;
+}
+} 
+
+@media (max-width: 376px){
+  .btn-t {
+    margin: 0px 0px 1px 270px !important;
+}
+} 
+
+@media (max-width: 321px){
+  .btn-t {
+    margin: 0px 0px 0px 220px !important;
+}
+} 
+
+
 /* Стили для бургер-меню */
 .navbar-toggler {
   border: none;
   outline: none;
   padding: 0;
   cursor: pointer;
-}
-
-.navbar-toggler-icon {
-  background-color: #fff;
-}
-
-.navbar-toggler-icon::after, .navbar-toggler-icon::before {
-  background-color: #fff;
 }
 
 /* Стили для раздела "Популярные темы" в бургер-меню */

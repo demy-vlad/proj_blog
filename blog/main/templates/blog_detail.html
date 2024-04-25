@@ -52,13 +52,13 @@
             <div class="col-lg-4">
                 <!-- Популярные темы -->
                 <h2>Популярні теми</h2>
-                <ul id="popular-topics">
+                <div class="popular-topics">
                     {% for catalog, details in catalogs.items %}
                         <a href="/category/{{ details.category }}">
                             <p>[{{ details.count }}] {{ catalog }}</p>
                         </a>
                     {% endfor %}
-                </ul>
+                </div>
             </div>
         </div>
     </div>
