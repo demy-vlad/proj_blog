@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('catalog_name', models.CharField(max_length=100, verbose_name='Catalog Name')),
                 ('short_description', models.CharField(max_length=400, verbose_name='Short Description')),
                 ('full_description', models.CharField(max_length=400, verbose_name='Full Description')),
-                ('image', models.ImageField(default='default.jpg', upload_to='', verbose_name='Image')),
+                ('image', models.ImageField(default='default.png', upload_to='', verbose_name='Image')),
                 ('date_added', models.DateField(verbose_name='Date Added')),
             ],
             options={

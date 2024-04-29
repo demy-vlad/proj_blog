@@ -45,7 +45,7 @@ class BlogCreate(BaseModel):
     catalog_name: str
     short_description: str
     full_description: str
-    image: Optional[str] = "default.jpg"
+    image: Optional[str] = "media/default.png"
     date_added: date
 
 # Класс для хранения пользователей (заглушка)
