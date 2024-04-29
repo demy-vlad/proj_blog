@@ -29,7 +29,13 @@ class ModerationBlog:
         if full_description != None:
             requests.put(f"{self.base_url}/blog/{blog_id}/?full_description={str(full_description)}", auth=(self.username, self.password))
             logger.info(f"Update full_description, blog_id: {blog_id}")
-        
+            self.blog_deleted(blog_id)
+            
+    def blog_deleted(self, blog_id=1006):
+        response = requests.get(f"{self.base_url}/blog/{blog_id}").json()
+        if 0 == len(response['full_description']):
+            requests.delete(f"{self.base_url}/blog/{blog_id}", auth=(self.username, self.password))
+            logger.info(f"[{blog_id}] Blog deleted successfully")
 
 if __name__ == "__main__":
     moderation = ModerationBlog()
