@@ -1,14 +1,19 @@
+import os
 from bs4 import BeautifulSoup
 import requests
 from loguru import logger
 import json
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 class BlogScraper:
-    def __init__(self, base_url, username, password):
-        self.base_url = base_url
-        self.username = username
-        self.password = password
+    def __init__(self):
+        self.base_url = os.getenv("API_URL")
+        self.username = os.getenv("USER_USERNAME")
+        self.password = os.getenv("USER_PASSWORD")
         self.page_title_art_nav = "body > div.common-table-div.d-flex.s-width > div.main-part-content > div.page-title-art"
         self.page_num_nav = "body > div.common-table-div.d-flex.s-width > div.main-part-content > div.list-pager > div > a.ib"
         self.articles_cell_navs = ".articles-cell"
@@ -23,7 +28,7 @@ class BlogScraper:
             json_data = json.loads(response.text)
             self.get_requests_html_text(json_data)
         else:
-            logger.error("The request failed:", response.status_code)
+            logger.error(f"The request failed: {response.status_code}")
 
     def get_requests_html_text(self, data):
         try:
@@ -119,5 +124,5 @@ class BlogScraper:
 
 
 if __name__ == "__main__":
-    scraper = BlogScraper("http://127.0.0.1:7000", "admin", "admin")
+    scraper = BlogScraper()
     scraper.get_all_catalogs()

@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from .latest_publications import latest_publications
 from .models import Blog, CatalogOfArticles
 from .get_blogs_in_category import *
-
+import markdown
 
 def index(request):
     return render(request, 'index.html', {
@@ -15,9 +15,11 @@ def index(request):
 def blog_detail(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
     catalog = get_object_or_404(CatalogOfArticles, title=blog.catalog_name)
+    
     return render(request, 'blog_detail.html', {
         'catalog': catalog,
         'blog': blog,
+        'full_description': markdown.markdown(blog.full_description),
         'catalogs': count_blog_entries_by_catalog(),
         'latest_publications': latest_publications(),
         })

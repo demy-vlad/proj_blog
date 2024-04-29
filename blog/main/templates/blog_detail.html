@@ -49,9 +49,9 @@
         <div class="row">
             <div class="col-lg-8">
                 <!-- Последние публикации -->
-                <h2>{{ blog.short_description }}</h2>
+                <h2>{{ blog.short_description|safe }}</h2>
                 <br>
-                <p>{{ blog.full_description }}</p>
+                <p>{{ full_description|safe }}</p>
                 <p>{{ blog.date_added }}</p>
             </div>
             <div class="col-lg-4">

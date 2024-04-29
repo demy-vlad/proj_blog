@@ -18,6 +18,6 @@ class CatalogOfArticlesAdmin(admin.ModelAdmin):
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
     form = BlogForm
-    list_display = ['title', 'catalog_name', 'date_added']
+    list_display = ['title', 'catalog_name', 'date_added', 'flag']
     search_fields = ['title', 'catalog_name']
-    list_filter = ['date_added']
+    list_filter = ['flag', 'catalog_name']

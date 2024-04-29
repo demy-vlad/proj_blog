@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from pydantic import BaseModel
@@ -5,6 +6,9 @@ from typing import List, Optional
 from datetime import date
 import os
 import django
+from dotenv import load_dotenv
+
+load_dotenv()
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'blog.settings')
 django.setup()
@@ -31,6 +35,7 @@ class BlogResponse(BaseModel):
     full_description: str
     image: str
     date_added: date
+    flag: bool
     
 # Pydantic модель для создания нового блога
 class BlogCreate(BaseModel):
@@ -45,7 +50,7 @@ class BlogCreate(BaseModel):
 
 # Класс для хранения пользователей (заглушка)
 class Users:
-    users = {"admin": "admin"}
+    users = {str(os.getenv("USER_USERNAME")): str(os.getenv("USER_PASSWORD"))}
     
 # Инициализируем экземпляр HTTPBasic для аутентификации
 security = HTTPBasic()
@@ -88,7 +93,8 @@ def get_all_blogs():
                 short_description=blog.short_description,
                 full_description=blog.full_description,
                 image=image_url,  # Передача URL изображения
-                date_added=blog.date_added
+                date_added=blog.date_added,
+                flag=blog.flag
             ))
         return blogs_response
     except Exception as e:
@@ -109,7 +115,8 @@ def create_blog(blog_data: BlogCreate, username: str = Depends(check_credentials
             short_description=blog_data.short_description,
             full_description=blog_data.full_description,
             image=blog_data.image,
-            date_added=blog_data.date_added
+            date_added=blog_data.date_added,
+            flag=False
         )
         # Преобразование созданного блога в Pydantic модель и возвращение
         created_blog = BlogResponse(
@@ -121,17 +128,46 @@ def create_blog(blog_data: BlogCreate, username: str = Depends(check_credentials
             short_description=new_blog.short_description,
             full_description=new_blog.full_description,
             image=new_blog.image.url if hasattr(new_blog.image, 'url') else str(new_blog.image),
-            date_added=new_blog.date_added
+            date_added=new_blog.date_added,
+            flag=False
         )
         return created_blog
     except (Exception, KeyboardInterrupt) as e:
         raise HTTPException(status_code=400, detail=str(e))
-    
+
+# Роут для оновлення існуючого блогу
+@app.put("/blogs/{blog_id}/", response_model=BlogResponse)
+def update_blog(blog_id: int, full_description: str, username: str = Depends(check_credentials)):
+    try:
+        # Отримання існуючого об'єкту Blog за його ідентифікатором
+        blog = get_object_or_404(Blog, id=blog_id)
+
+        # Оновлення поля full_description
+        blog.full_description = full_description
+        # Оновлення поля flag
+        blog.flag = True
+        # Збереження змін у базі даних
+        blog.save()
+
+        # Повернення оновленого блогу у відповіді
+        return BlogResponse(
+            id=blog.id,
+            title=blog.title,
+            keywords_header=blog.keywords_header,
+            description_header=blog.description_header,
+            catalog_name=blog.catalog_name,
+            short_description=blog.short_description,
+            full_description=blog.full_description,
+            image=blog.image.url if hasattr(blog.image, 'url') else str(blog.image),
+            date_added=blog.date_added,
+            flag=blog.flag,
+        )
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+  
 @app.get("/catalogs/", response_model=List[CatalogOfArticlesResponse])
 def get_all_catalog(username: str = Depends(check_credentials)):
     try:
         return CatalogOfArticles.objects.all()
     except (Exception, KeyboardInterrupt) as e:
         raise HTTPException(status_code=500, detail=str(e))
-    
-# username: str = Depends(check_credentials)

@@ -54,11 +54,12 @@ class Blog(models.Model):
     keywords_header = models.TextField("Keywords Header", max_length=2000, null=False, blank=False)
     description_header = models.TextField("Description Header", max_length=3000, null=False, blank=False)
     catalog_name = models.CharField("Catalog Name", max_length=100, null=False, blank=False)
-    short_description = RichTextField("Short Description", max_length=4000, null=False, blank=False)
-    full_description = RichTextField("Full Description", max_length=4000, null=False, blank=False)
+    short_description = RichTextField("Short Description", max_length=6000, null=False, blank=False)
+    full_description = RichTextField("Full Description", max_length=6000, null=False, blank=False)
     image = models.ImageField("Image", null=False, blank=False, default='default.jpg')
     date_added = models.DateField("Date Added", null=False, blank=False)
     slug = models.SlugField("Slug", max_length=200, unique=True, null=True, blank=True)
+    flag = models.BooleanField("Moderation", default=False)
     
     def get_absolute_url(self):
         return reverse('blog_detail', kwargs={'slug': self.slug})
