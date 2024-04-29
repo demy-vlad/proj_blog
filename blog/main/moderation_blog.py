@@ -27,7 +27,7 @@ class ModerationBlog:
     
     def put_blog(self, blog_id, full_description):
         if full_description != None:
-            requests.put(f"{self.base_url}/blogs/{blog_id}/?full_description={str(full_description)}", auth=(self.username, self.password))
+            requests.put(f"{self.base_url}/blog/{blog_id}/?full_description={str(full_description)}", auth=(self.username, self.password))
             logger.info(f"Update full_description, blog_id: {blog_id}")
         
 

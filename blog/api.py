@@ -73,6 +73,70 @@ def check_credentials(credentials: HTTPBasicCredentials = Depends(security)):
     # Возвращаем имя пользователя, чтобы можно было его использовать в обработчике
     return username
 
+@app.get("/blog/{blog_id}", response_model=BlogResponse)
+def get_blog_by_id(blog_id: int):
+    try:
+        # Знайдемо блог за його id
+        blog = Blog.objects.get(id=blog_id)
+        # Перетворимо об'єкт Django у Pydantic модель та повернемо
+        return BlogResponse(
+            id=blog.id,
+            title=blog.title,
+            keywords_header=blog.keywords_header,
+            description_header=blog.description_header,
+            catalog_name=blog.catalog_name,
+            short_description=blog.short_description,
+            full_description=blog.full_description,
+            image=blog.image.url if hasattr(blog.image, 'url') else str(blog.image),
+            date_added=blog.date_added,
+            flag=blog.flag,
+        )
+    except Blog.DoesNotExist:
+        # Якщо блог не знайдений, повернемо HTTP виняток з кодом 404
+        raise HTTPException(status_code=404, detail="Blog not found")
+
+# Роут для оновлення існуючого блогу
+@app.put("/blog/{blog_id}/", response_model=BlogResponse)
+def update_blog(blog_id: int, full_description: str, username: str = Depends(check_credentials)):
+    try:
+        # Отримання існуючого об'єкту Blog за його ідентифікатором
+        blog = get_object_or_404(Blog, id=blog_id)
+
+        # Оновлення поля full_description
+        blog.full_description = full_description
+        # Оновлення поля flag
+        blog.flag = True
+        # Збереження змін у базі даних
+        blog.save()
+
+        # Повернення оновленого блогу у відповіді
+        return BlogResponse(
+            id=blog.id,
+            title=blog.title,
+            keywords_header=blog.keywords_header,
+            description_header=blog.description_header,
+            catalog_name=blog.catalog_name,
+            short_description=blog.short_description,
+            full_description=blog.full_description,
+            image=blog.image.url if hasattr(blog.image, 'url') else str(blog.image),
+            date_added=blog.date_added,
+            flag=blog.flag,
+        )
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.delete("/blog/{blog_id}")
+def delete_blog_by_id(blog_id: int, username: str = Depends(check_credentials)):
+    try:
+        # Спробуємо знайти блог за його id та видалити його
+        blog = Blog.objects.get(id=blog_id)
+        blog.delete()
+        # Якщо блог успішно видалено, повернемо повідомлення про успіх
+        return {"detail": "Blog deleted successfully"}
+    except Blog.DoesNotExist:
+        # Якщо блог не знайдений, повернемо HTTP виняток з кодом 404
+        raise HTTPException(status_code=404, detail="Blog not found")
+
 # Роут для получения всех блогов
 @app.get("/blogs/", response_model=List[BlogResponse])
 def get_all_blogs():
@@ -135,35 +199,6 @@ def create_blog(blog_data: BlogCreate, username: str = Depends(check_credentials
     except (Exception, KeyboardInterrupt) as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-# Роут для оновлення існуючого блогу
-@app.put("/blogs/{blog_id}/", response_model=BlogResponse)
-def update_blog(blog_id: int, full_description: str, username: str = Depends(check_credentials)):
-    try:
-        # Отримання існуючого об'єкту Blog за його ідентифікатором
-        blog = get_object_or_404(Blog, id=blog_id)
-
-        # Оновлення поля full_description
-        blog.full_description = full_description
-        # Оновлення поля flag
-        blog.flag = True
-        # Збереження змін у базі даних
-        blog.save()
-
-        # Повернення оновленого блогу у відповіді
-        return BlogResponse(
-            id=blog.id,
-            title=blog.title,
-            keywords_header=blog.keywords_header,
-            description_header=blog.description_header,
-            catalog_name=blog.catalog_name,
-            short_description=blog.short_description,
-            full_description=blog.full_description,
-            image=blog.image.url if hasattr(blog.image, 'url') else str(blog.image),
-            date_added=blog.date_added,
-            flag=blog.flag,
-        )
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
   
 @app.get("/catalogs/", response_model=List[CatalogOfArticlesResponse])
 def get_all_catalog(username: str = Depends(check_credentials)):
