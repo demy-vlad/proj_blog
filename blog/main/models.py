@@ -25,6 +25,7 @@ class CatalogOfArticles(models.Model):
     catalog_name = models.TextField("Catalog Name", max_length=100, null=False, blank=False)
     url_catalog = models.URLField("URL Catalog", max_length=1000, default='-')
     slug = models.SlugField("Slug", max_length=200, unique=True, null=True, blank=True)
+    date_sitemap = models.DateTimeField("Date Added", auto_now_add=True)
 
     def generate_unique_slug(self):
         slug = slugify(self.title)
@@ -60,6 +61,7 @@ class Blog(models.Model):
     date_added = models.DateField("Date Added", null=False, blank=False)
     slug = models.SlugField("Slug", max_length=200, unique=True, null=True, blank=True)
     flag = models.BooleanField("Moderation", default=False)
+    date_sitemap = models.DateTimeField("Date Added", auto_now_add=True)
     
     def get_absolute_url(self):
         return reverse('blog_detail', kwargs={'slug': self.slug})

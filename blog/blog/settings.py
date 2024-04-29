@@ -33,6 +33,7 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sitemaps',
     'markdown',
     'ckeditor',
     'main',
