@@ -47,6 +47,10 @@ class BlogCreate(BaseModel):
     full_description: str
     image: Optional[str] = "media/default.png"
     date_added: date
+    
+class BlogUpdate(BaseModel):
+    full_description: str
+    flag: bool
 
 # Класс для хранения пользователей (заглушка)
 class Users:
@@ -73,7 +77,7 @@ def check_credentials(credentials: HTTPBasicCredentials = Depends(security)):
     # Возвращаем имя пользователя, чтобы можно было его использовать в обработчике
     return username
 
-@app.get("/blog/{blog_id}", response_model=BlogResponse)
+@app.get("/blogs/{blog_id}", response_model=BlogResponse)
 def get_blog_by_id(blog_id: int):
     try:
         # Знайдемо блог за його id
@@ -96,20 +100,15 @@ def get_blog_by_id(blog_id: int):
         raise HTTPException(status_code=404, detail="Blog not found")
 
 # Роут для оновлення існуючого блогу
-@app.put("/blog/{blog_id}/", response_model=BlogResponse)
-def update_blog(blog_id: int, full_description: str, username: str = Depends(check_credentials)):
+@app.put("/blogs/{blog_id}/", response_model=BlogResponse)
+def update_blog(blog_id: int, update_data: BlogUpdate, username: str = Depends(check_credentials)):
     try:
-        # Отримання існуючого об'єкту Blog за його ідентифікатором
         blog = get_object_or_404(Blog, id=blog_id)
-
-        # Оновлення поля full_description
-        blog.full_description = full_description
-        # Оновлення поля flag
-        blog.flag = True
-        # Збереження змін у базі даних
+        for field, value in update_data.dict().items():
+            if hasattr(blog, field):
+                setattr(blog, field, value)
+                
         blog.save()
-
-        # Повернення оновленого блогу у відповіді
         return BlogResponse(
             id=blog.id,
             title=blog.title,
@@ -125,7 +124,7 @@ def update_blog(blog_id: int, full_description: str, username: str = Depends(che
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@app.delete("/blog/{blog_id}")
+@app.delete("/blogs/{blog_id}")
 def delete_blog_by_id(blog_id: int, username: str = Depends(check_credentials)):
     try:
         # Спробуємо знайти блог за його id та видалити його

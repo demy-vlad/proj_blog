@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  django_app:
+    build:
+      context: ./blog
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: always
+    volumes:
+      - ./blog/db.sqlite3:/app/db.sqlite3
+      
+  fastapi:
+    build:
+      context: ./blog
+      dockerfile: Dockerfile
+    command: uvicorn api:app --reload --host 0.0.0.0 --port 7000
+    ports:
+      - "7000:7000"
+    volumes:
+      - ./blog/db.sqlite3:/app/db.sqlite3
