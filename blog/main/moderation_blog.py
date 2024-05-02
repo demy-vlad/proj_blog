@@ -3,6 +3,7 @@ from loguru import logger
 import requests
 import os
 from dotenv import load_dotenv
+from requests.exceptions import ConnectTimeout
 
 load_dotenv()
 
@@ -14,10 +15,21 @@ class ModerationBlog:
         self.info_description = "Використовуй Українську мову та Онови статтю до 3500 символів з оптимізацією під СЕО та граматично правильним текстом, використовуй HTML теги"
         
     def moderation_blog(self):
-        response = requests.get(f"{self.base_url}/blogs/")
-        for json_data in response.json():
-            if json_data["flag"] != True:
-                self.generate_content(blog_id=json_data['id'], full_description=json_data['full_description'])
+        max_retries = 1
+        for retry in range(max_retries):
+            try:
+                response = requests.get(f"{self.base_url}/blogs/", timeout=(6000.0))
+                logger.info(response.text)
+                for json_data in response.json():
+                    if json_data["flag"] != True:
+                        self.generate_content(blog_id=json_data['id'], full_description=json_data['full_description'])
+                break
+            except ConnectTimeout as e:
+                # Handle timeout error
+                logger.debug(f"Retry {retry + 1}: Connection timed out - {e}")
+        else:
+            logger.error("Max retries exceeded. Unable to establish connection.")
+        
         
     def generate_content(self, blog_id, full_description):
         genai.configure(api_key=os.getenv("API_KEY"))

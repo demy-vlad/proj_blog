@@ -12,12 +12,13 @@ ENV TZ=Europe/Kiev
 COPY requirements.txt /app/
 WORKDIR /app
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install mysqlclient
 
 # Копируем исходный код Django в контейнер
 COPY . /app/
 
 # Выполняем миграции
-RUN python manage.py makemigrations
+# RUN python manage.py makemigrations
 RUN python manage.py migrate
 
 # Экспозим порт Django
