@@ -205,3 +205,7 @@ def get_all_catalog(username: str = Depends(check_credentials)):
         return CatalogOfArticles.objects.all()
     except (Exception, KeyboardInterrupt) as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.get("/", include_in_schema=False)
+async def redirect_to_docs():
+    return RedirectResponse(url="/docs")
