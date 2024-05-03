@@ -18,8 +18,7 @@ class ModerationBlog:
         max_retries = 1
         for retry in range(max_retries):
             try:
-                response = requests.get(f"{self.base_url}/blogs/", timeout=(6000.0))
-                logger.info(response.text)
+                response = requests.get(f"{self.base_url}/blogs/", timeout=(50.0))
                 for json_data in response.json():
                     if json_data["flag"] != True:
                         self.generate_content(blog_id=json_data['id'], full_description=json_data['full_description'])
