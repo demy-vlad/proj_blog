@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from fastapi import Depends, FastAPI, HTTPException
+from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from pydantic import BaseModel
 from typing import List, Optional
@@ -205,3 +206,7 @@ def get_all_catalog(username: str = Depends(check_credentials)):
         return CatalogOfArticles.objects.all()
     except (Exception, KeyboardInterrupt) as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.get("/", include_in_schema=False)
+async def redirect_to_docs():
+    return RedirectResponse(url="/docs")
