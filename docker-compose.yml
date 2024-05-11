@@ -15,7 +15,7 @@ services:
     build:
       context: ./blog
       dockerfile: Dockerfile
-    command: uvicorn api:app --reload --host 0.0.0.0 --port 7000
+    command: uvicorn api:app --reload --host g-nix.tech --port 7000
     ports:
       - "7000:7000"
     volumes:
