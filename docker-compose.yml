@@ -18,6 +18,5 @@ services:
     command: uvicorn api:app --reload --host 0.0.0.0 --port 7000
     ports:
       - "7000:7000"
-    restart: always
     volumes:
       - ./blog/db.sqlite3:/app/db.sqlite3
