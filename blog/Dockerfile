@@ -12,9 +12,9 @@ ENV TZ=Europe/Kiev
 COPY requirements.txt /app/
 WORKDIR /app
 
+RUN python -m pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install mysqlclient
-RUN /bin/sh -c sudo apt update
 # Копируем исходный код Django в контейнер
 COPY . /app/
 
