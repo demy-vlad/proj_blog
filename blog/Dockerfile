@@ -14,7 +14,10 @@ WORKDIR /app
 
 RUN python -m pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install mysqlclient
+RUN apk add --no-cache mariadb-dev build-base \
+    && pip install mysqlclient \
+    && apk del build-base
+
 # Копируем исходный код Django в контейнер
 COPY . /app/
 
