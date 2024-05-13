@@ -1,7 +1,8 @@
 # Используем более легковесный базовый образ
 FROM python:3.9.14-alpine
 
-RUN /bin/sh -c apt-get update
+RUN sudo apt update
+RUN sudo apt upgrade
 # Устанавливаем необходимые зависимости
 RUN apk add --no-cache libpq
 
