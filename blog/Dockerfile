@@ -23,7 +23,7 @@ COPY . /app/
 
 # Выполняем миграции
 # RUN python manage.py makemigrations
-RUN python manage.py migrate
+# RUN python manage.py migrate
 
 # Экспозим порт Django
 EXPOSE 8000
