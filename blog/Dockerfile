@@ -1,8 +1,6 @@
 # Используем более легковесный базовый образ
 FROM python:3.9.14-alpine
 
-RUN sudo apt update
-RUN sudo apt upgrade
 # Устанавливаем необходимые зависимости
 RUN apk add --no-cache libpq
 
@@ -13,9 +11,10 @@ ENV TZ=Europe/Kiev
 # Копируем файлы зависимостей Python и устанавливаем их
 COPY requirements.txt /app/
 WORKDIR /app
+
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install mysqlclient
-
+RUN /bin/sh -c sudo apt update
 # Копируем исходный код Django в контейнер
 COPY . /app/
 
