@@ -5,6 +5,7 @@ from loguru import logger
 import json
 from datetime import datetime
 from dotenv import load_dotenv
+from image_downloader import download_image
 
 load_dotenv()
 
@@ -113,7 +114,7 @@ class BlogScraper:
                         "catalog_name": page_post['catalog']['title'],
                         "short_description": page_post['article_desc'],
                         "full_description": f"{page_post['post_notice']} + {page_post['post_content']}"[:4000],
-                        "image": f"https://{page_post['img']}",
+                        "image": download_image(f"https://{page_post['img']}")[11:],
                         "date_added": datetime.now().strftime("%Y-%m-%d"),
                     }
                     requests.post(f"{self.base_url}/blogs/", auth=(self.username, self.password), json=json_post)

@@ -1,3 +1,4 @@
+import os
 from django.contrib import admin
 from .models import Users, CatalogOfArticles, Blog
 from .forms import UsersForm, CatalogOfArticlesForm, BlogForm
@@ -21,3 +22,8 @@ class BlogAdmin(admin.ModelAdmin):
     list_display = ['title', 'catalog_name', 'date_added', 'flag']
     search_fields = ['title', 'catalog_name']
     list_filter = ['flag', 'catalog_name']
+    actions = ['Run web scraping']  # Здесь добавляем ваше действие
+
+    def custom_action(self, request, queryset):
+        file_path = "blog/web_scraping/web_scraping_ek.py"
+        os.system(f"python3 {file_path}")
