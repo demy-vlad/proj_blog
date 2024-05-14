@@ -114,7 +114,8 @@ class BlogScraper:
                         "catalog_name": page_post['catalog']['title'],
                         "short_description": page_post['article_desc'],
                         "full_description": f"{page_post['post_notice']} + {page_post['post_content']}"[:4000],
-                        "image": download_image(f"https://{page_post['img']}"),
+                        # "image": download_image(f"https://{page_post['img']}"),
+                        "image": f"https://{page_post['img']}",
                         "date_added": datetime.now().strftime("%Y-%m-%d"),
                     }
                     requests.post(f"{self.base_url}/blogs/", auth=(self.username, self.password), json=json_post)

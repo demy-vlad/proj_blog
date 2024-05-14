@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 from loguru import logger
 
-folder_path = "blog/img"
+folder_path = "media/blog/img"
 
 def download_image(image_url):
     if not os.path.exists(folder_path):
