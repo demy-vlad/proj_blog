@@ -1,7 +1,7 @@
 import os
 from django.contrib import admin
 
-from web_scraping_ek import BlogScraper
+# from web_scraping_ek import BlogScraper
 from .models import Users, CatalogOfArticles, Blog
 from .forms import UsersForm, CatalogOfArticlesForm, BlogForm
 
@@ -27,16 +27,16 @@ class BlogAdmin(admin.ModelAdmin):
     actions = ['run_web_scraping']  # Здесь добавляем ваше действие
 
     def run_web_scraping(self, request, queryset):
-        if __name__ == "__main__":
-            scraper = BlogScraper()
-            scraper.get_all_catalogs()
-            self.message_user(request, "Web scraping executed successfully.")
+        # if __name__ == "__main__":
+        #     scraper = BlogScraper()
+        #     scraper.get_all_catalogs()
+        #     self.message_user(request, "Web scraping executed successfully.")
             
-    #     try:
-    #         file_path = "blog/web_scraping/web_scraping_ek.py"
-    #         os.system(f"python {file_path}")
-    #         self.message_user(request, "Web scraping executed successfully.")
-    #     except Exception as e:
-    #         self.message_user(request, f"Error occurred: {e}", level='ERROR')
+        try:
+            file_path = "blog/web_scraping/web_scraping_ek.py"
+            os.system(f"python {file_path}")
+            self.message_user(request, "Web scraping executed successfully.")
+        except Exception as e:
+            self.message_user(request, f"Error occurred: {e}", level='ERROR')
         
-    # run_web_scraping.short_description = "Run web scraping"
+    run_web_scraping.short_description = "Run web scraping"
