@@ -22,8 +22,14 @@ class BlogAdmin(admin.ModelAdmin):
     list_display = ['title', 'catalog_name', 'date_added', 'flag']
     search_fields = ['title', 'catalog_name']
     list_filter = ['flag', 'catalog_name']
-    actions = ['Run web scraping']  # Здесь добавляем ваше действие
+    actions = ['run_web_scraping']  # Здесь добавляем ваше действие
 
-    def custom_action(self, request, queryset):
-        file_path = "blog/web_scraping/web_scraping_ek.py"
-        os.system(f"python3 {file_path}")
+    def run_web_scraping(self, request, queryset):
+        try:
+            file_path = "blog/web_scraping/web_scraping_ek.py"
+            os.system(f"python {file_path}")
+            self.message_user(request, "Web scraping executed successfully.")
+        except Exception as e:
+            self.message_user(request, f"Error occurred: {e}", level='ERROR')
+        
+    run_web_scraping.short_description = "Run web scraping"
