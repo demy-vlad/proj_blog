@@ -5,7 +5,7 @@ from loguru import logger
 import json
 from datetime import datetime
 from dotenv import load_dotenv
-from image_downloader import download_image
+from web_scraping.image_downloader import download_image
 
 load_dotenv()
 
