@@ -4,6 +4,7 @@ from django.contrib import admin
 from web_scraping.web_scraping_ek import BlogScraper
 from .models import Users, CatalogOfArticles, Blog
 from .forms import UsersForm, CatalogOfArticlesForm, BlogForm
+from main.moderation_blog import ModerationBlog
 
 @admin.register(Users)
 class UsersAdmin(admin.ModelAdmin):
@@ -24,10 +25,15 @@ class BlogAdmin(admin.ModelAdmin):
     list_display = ['title', 'catalog_name', 'date_added', 'flag']
     search_fields = ['title', 'catalog_name']
     list_filter = ['flag', 'catalog_name']
-    actions = ['run_web_scraping']  # Здесь добавляем ваше действие
+    actions = ['run_web_scraping', 'run_moderation_blog']  # Здесь добавляем ваше действие
+
+    def run_moderation_blog(self, request, queryset):
+        self.message_user(request, "Web scraping executed successfully.")
+        ModerationBlog().moderation_blog()
 
     def run_web_scraping(self, request, queryset):
         self.message_user(request, "Web scraping executed successfully.")
         BlogScraper().get_all_catalogs()
         
     run_web_scraping.short_description = "Run web scraping"
+    run_moderation_blog.short_description = "Moderation blog"
