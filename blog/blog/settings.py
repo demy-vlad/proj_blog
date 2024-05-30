@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-)s9=rv1%voz@-1$(dnbnbrd!l+ibjs(=el+nv%lx0mvnyhyssh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '185.232.169.62', 'g-nix.tech']
+ALLOWED_HOSTS = ['127.0.0.1', '31.42.189.112', 'g-nix.tech']
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 # Application definition
